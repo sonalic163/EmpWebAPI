@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # -------------------- MySQL Database --------------------
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: empdb
+      MYSQL_USER: empuser
+      MYSQL_PASSWORD: emppassword
+    ports:
+      - "3306:3306"               # Host port 3306 maps to container port 3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  # -------------------- Backend Web API --------------------
+  backend:
+    build: ./EMPAPI               # Path to your Web API project containing Dockerfile
+    container_name: backend
+    ports:
+      - "5000:80"                 # Host port 5000 maps to container port 80 inside container
+    depends_on:
+      - mysql
+    environment:
+      # ASP.NET Core production environment
+      - ASPNETCORE_ENVIRONMENT=Production
+      # Connection string to MySQL container
+      - ConnectionStrings__DefaultConnection=Server=mysql;Database=empdb;User=empuser;Password=emppassword;
+
+  # -------------------- YARP Gateway --------------------
+  gateway:
+    build: ./YarpGateway          # Path to your Gateway project containing Dockerfile
+    container_name: gateway
+    ports:
+      - "80:80"                   # Gateway exposed on host port 80
+    depends_on:
+      - backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+# -------------------- Volumes --------------------
+volumes:
+  mysql-data:

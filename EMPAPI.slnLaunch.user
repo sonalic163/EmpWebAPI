@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "WebApplication1\\WebApplication1.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "OcelotGateway\\OcelotGateway.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "YarpGateway\\YarpGateway.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
