@@ -18,7 +18,7 @@ services:
 
   # -------------------- Backend Web API --------------------
   backend:
-    build: ./EMPAPI               # Path to your Web API project containing Dockerfile
+    build: ./WebApplication1               # Path to your Web API project containing Dockerfile
     container_name: backend
     ports:
       - "5000:80"                 # Host port 5000 maps to container port 80 inside container
