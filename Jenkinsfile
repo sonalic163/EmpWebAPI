@@ -1,15 +1,9 @@
 pipeline {
     agent any
+    environment {
+        PATH = "/usr/bin:${env.PATH}"
+    }
     stages {
-        stage('Checkout') {
-            steps {
-                git(
-                    branch: 'main',
-                    url: 'https://github.com/Sonalic163/EmpWebAPI.git',
-                    credentialsId: 'github-pat'
-                )
-            }
-        }
         stage('Build & Deploy') {
             steps {
                 sh 'docker-compose down || true'
