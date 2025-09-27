@@ -1,23 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-
-# Copy csproj from subfolder
-COPY *.csproj ./
-
-# Restore dependencies
-RUN dotnet restore "WebApplication1/WebApplication1.csproj"
-
-# Copy everything
-COPY . ./
-
-# Build
-WORKDIR /src/WebApplication1
-RUN dotnet build "WebApplication1.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "WebApplication1.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+# Stage 1: Build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# Copy csproj and restore dependencies
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy the rest of the code
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Stage 2: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+COPY --from=build /app/out ./
 ENTRYPOINT ["dotnet", "WebApplication1.dll"]
