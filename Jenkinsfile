@@ -1,8 +1,10 @@
 pipeline {
     agent any
     environment {
-        PATH = "/usr/bin:${env.PATH}"
-        COMPOSE_PROJECT_DIR = "${WORKSPACE}/EmpWebAPI"
+      checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/main']], 
+                    userRemoteConfigs: [[url: 'https://github.com/sonalic163/EmpWebAPI.git', credentialsId: 'github-pat']]
+                ])
     }
     stages {
         stage('Build & Deploy') {
