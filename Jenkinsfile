@@ -2,12 +2,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml' // update path if needed
     }
 
     stages {
         stage('Checkout') {
             steps {
+                // Clone the public repo without credentials
                 git branch: 'main', url: 'https://github.com/Sonali163/EmpWebAPI.git'
             }
         }
@@ -15,11 +16,14 @@ pipeline {
         stage('Build & Deploy') {
             steps {
                 script {
-                    // Stop running containers safely
-                    sh 'docker-compose down || true'
+                    // Ensure docker access
+                    sh "docker version"
 
-                    // Build & run all services again
-                    sh 'docker-compose up -d --build'
+                    // Stop any running containers safely
+                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} down || true"
+
+                    // Build & run services
+                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} up -d --build"
                 }
             }
         }
@@ -34,3 +38,4 @@ pipeline {
         }
     }
 }
+
