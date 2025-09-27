@@ -1,37 +1,20 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
-        PATH = "/usr/bin:$PATH"  // Add docker-compose to PATH
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Sonali163/EmpWebAPI.git', credentialsId: 'github-pat'
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/Sonalic163/EmpWebAPI.git',
+                    credentialsId: 'github-pat'
+                )
             }
         }
-
         stage('Build & Deploy') {
             steps {
-                script {
-                    // Stop running containers safely
-                    sh '/usr/bin/docker-compose down || true'
-
-                    // Build & run all services again
-                    sh '/usr/bin/docker-compose up -d --build'
-                }
+                sh 'docker-compose down || true'
+                sh 'docker-compose up -d --build'
             }
-        }
-    }
-
-    post {
-        success {
-            echo '✅ Deployment successful!'
-        }
-        failure {
-            echo '❌ Deployment failed. Check logs.'
         }
     }
 }
