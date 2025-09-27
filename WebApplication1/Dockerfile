@@ -2,13 +2,13 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy csproj from subfolder
-COPY WebApplication1/WebApplication1.csproj WebApplication1/
+COPY *.csproj ./
 
 # Restore dependencies
 RUN dotnet restore "WebApplication1/WebApplication1.csproj"
 
 # Copy everything
-COPY . .
+COPY . ./
 
 # Build
 WORKDIR /src/WebApplication1
