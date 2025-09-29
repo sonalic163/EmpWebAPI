@@ -20,8 +20,8 @@ pipeline {
             steps {
                 dir('EmpWebAPI') {  // Change directory to where docker-compose.yml is
                     script {
-                        sh 'docker compose down || true'
-                        sh 'docker compose up -d --build'
+                       sh 'docker compose down || true'
+                       sh 'docker compose up -d --build'
                     }
                 }
             }
