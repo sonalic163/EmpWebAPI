@@ -22,6 +22,7 @@ services:
       - mysql
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - DOTNET_URLS=http://0.0.0.0:80
       - ConnectionStrings__DefaultConnection=Server=mysql;Database=empdb;User=empuser;Password=emppassword;
 
   gateway:
@@ -33,3 +34,4 @@ services:
       - backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - DOTNET_URLS=http://0.0.0.0:80
