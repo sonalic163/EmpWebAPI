@@ -13,8 +13,6 @@ services:
       MYSQL_PASSWORD: emppassword
     ports:
       - "3306:3306"               # Host port 3306 maps to container port 3306
-    volumes:
-      - mysql-data:/var/lib/mysql
 
   # -------------------- Backend Web API --------------------
   backend:
@@ -41,6 +39,3 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
-# -------------------- Volumes --------------------
-volumes:
-  mysql-data:
