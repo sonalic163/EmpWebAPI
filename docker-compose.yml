@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql_new1
+    container_name: mysql_new
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -15,7 +15,7 @@ services:
 
   backend:
     build: ./WebApplication1
-    container_name: empwebapi_backend1
+    container_name: empwebapi_backend
     ports:
       - "5000:80"
     depends_on:
@@ -26,7 +26,7 @@ services:
 
   gateway:
     build: ./YarpGateway
-    container_name: empwebapi_gateway1
+    container_name: empwebapi_gateway
     ports:
       - "80:80"
     depends_on:
