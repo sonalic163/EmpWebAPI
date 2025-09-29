@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  # -------------------- MySQL Database --------------------
-  mysql:
-    image: mysql:8.0
-    container_name: mysql_new
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: empdb
-      MYSQL_USER: empuser
-      MYSQL_PASSWORD: emppassword
-    ports:
-      - "3306:3306"               # Host port 3306 maps to container port 3306
+  # # -------------------- MySQL Database --------------------
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: mysql_new
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: rootpassword
+  #     MYSQL_DATABASE: empdb
+  #     MYSQL_USER: empuser
+  #     MYSQL_PASSWORD: emppassword
+  #   ports:
+  #     - "3306:3306"               # Host port 3306 maps to container port 3306
 
   # -------------------- Backend Web API --------------------
   backend:
