@@ -31,8 +31,8 @@ namespace WebApplication1.Controllers
         }
 
         [Authorize]
-        [HttpGet("GetRecord")]
-        public IActionResult GetRecord()
+        [HttpGet("GetRecordList")]
+        public IActionResult GetRecordList()
         {
             try
             {
