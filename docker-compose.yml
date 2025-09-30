@@ -37,6 +37,18 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - DOTNET_URLS=http://0.0.0.0:80
+  
+  ocelot_gateway:
+    build: ./OcelotGateway       
+    container_name: empwebapi_ocelot_gateway
+    ports:
+      - "81:80"                   
+    depends_on:
+      - backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DOTNET_URLS=http://0.0.0.0:80
+
 
 # Declare volumes here
 volumes:
