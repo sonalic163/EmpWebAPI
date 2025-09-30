@@ -12,6 +12,8 @@ services:
       MYSQL_PASSWORD: emppassword
     ports:
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql   # Persist MySQL data
 
   backend:
     build: ./WebApplication1
@@ -35,3 +37,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - DOTNET_URLS=http://0.0.0.0:80
+
+# Declare volumes here
+volumes:
+  mysql_data:
